@@ -40,7 +40,7 @@ public class UsuarioController{
 		return  ResponseEntity.ok(usuarioRepository.findAll());
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<Usuario>  getById(@PathVariable Long id){
 		return 	usuarioRepository.findById(id)
 				.map(resposta -> ResponseEntity.ok(resposta))
@@ -64,10 +64,10 @@ public class UsuarioController{
 	}
 	
 	@PostMapping("/logar")
-	public ResponseEntity<UsuarioLogin> login(@RequestBody  Optional<UsuarioLogin> usuarioLogin){
+	public ResponseEntity<UsuarioLogin> autenticationUsuario(@RequestBody  Optional<UsuarioLogin> usuario){
 		
-		return usuarioService.autenticarUsuario(usuarioLogin)
-				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
+		return usuarioService.logarUsuario(usuario)
+				.map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 		
 		
